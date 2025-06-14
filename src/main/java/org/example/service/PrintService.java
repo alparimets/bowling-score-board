@@ -40,6 +40,10 @@ public class PrintService {
     System.out.println(message);
   }
 
+  public void printInputPromt(String message) {
+    System.out.print(message);
+  }
+
   public void printError(String errorMessage) {
     System.err.println("Error: " + errorMessage);
   }

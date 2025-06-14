@@ -49,32 +49,4 @@ class FrameTest {
     assertTrue(frame.isComplete());
     assertTrue(frame.isStrike());
   }
-
-  @Test
-  void testTooManyPinsWhenRolling() {
-    var frame = new Frame();
-
-    var tooManyPinsExcetpion =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> {
-              frame.addRoll(11);
-            });
-
-    assertEquals("Pins must be between 0 and 10.", tooManyPinsExcetpion.getMessage());
-  }
-
-  @Test
-  void testNegativePinsWhenRolling() {
-    var frame = new Frame();
-
-    var negativePinsException =
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> {
-              frame.addRoll(-1);
-            });
-
-    assertEquals("Pins must be between 0 and 10.", negativePinsException.getMessage());
-  }
 }

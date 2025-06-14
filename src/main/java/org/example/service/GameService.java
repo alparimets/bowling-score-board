@@ -9,7 +9,8 @@ import org.example.model.Player;
 @ApplicationScoped
 public class GameService {
   @Inject PrintService printService;
-  @Inject InputReaderService inputReaderService;
+  @Inject RollService rollService;
+  @Inject PinDeckService pinDeckService;
 
   private Game game;
 
@@ -29,18 +30,23 @@ public class GameService {
   private void playTurn(Player currentPlayer) {
     printService.printPlayerTurn(currentPlayer);
 
-    int currentFrameIndex = currentPlayer.getScoreLine().getCurrentFrameIndex();
-    printService.printFrameHeader(currentFrameIndex + 1, 1);
+    int currentTurnFrameIndex = currentPlayer.getScoreLine().getCurrentFrameIndex();
+    var activeFrame = currentPlayer.getScoreLine().getFrame(currentTurnFrameIndex);
+    printService.printFrameHeader(currentTurnFrameIndex + 1, activeFrame.getRollCount() + 1);
+    pinDeckService.reset();
 
-    var firstRollPins = inputReaderService.getFirstRoll();
-
+    var firstRollPins = rollService.roll();
     currentPlayer.roll(firstRollPins);
-    if (!currentPlayer.isFrameFinished()) {
-      printService.printFrameHeader(currentFrameIndex + 1, 2);
-      var secondRollPins = inputReaderService.getSecondRoll(firstRollPins);
+    while (!isTurnFinished(currentPlayer, currentTurnFrameIndex)) {
+      printService.printFrameHeader(currentTurnFrameIndex + 1, activeFrame.getRollCount() + 1);
+      var secondRollPins = rollService.roll();
       currentPlayer.roll(secondRollPins);
     }
-    var finishedFrame = currentPlayer.getScoreLine().getFrame(currentFrameIndex);
-    printService.printFrameResult(currentPlayer, finishedFrame, currentFrameIndex + 1);
+
+    printService.printFrameResult(currentPlayer, activeFrame, currentTurnFrameIndex + 1);
+  }
+
+  private boolean isTurnFinished(Player currentPlayer, int currentTurnFrameIndex) {
+    return currentPlayer.getScoreLine().getFrame(currentTurnFrameIndex).isComplete();
   }
 }

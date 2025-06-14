@@ -8,16 +8,7 @@ public class ScoreLine {
   private int currentFrameIndex = 0;
 
   public ScoreLine() {
-    // Initialize with the first frame
-    addFrame(new Frame());
-  }
-
-  public void addFrame(Frame frame) {
-    if (frames.size() < 10) {
-      frames.add(frame);
-    } else {
-      throw new IllegalStateException("Cannot add more than 10 frames.");
-    }
+    frames.add(new Frame());
   }
 
   public boolean isComplete() {
@@ -33,12 +24,14 @@ public class ScoreLine {
   }
 
   public void advanceToNextFrame() {
-    if (frames.size() < 10) {
-      addFrame(new Frame());
-      currentFrameIndex++;
+    if (frames.size() < 9) {
+      frames.add(new Frame());
+    } else if (frames.size() == 9) {
+      frames.add(new FinalFrame());
     } else {
       throw new IllegalStateException("Already at the last frame.");
     }
+    currentFrameIndex++;
   }
 
   public int calculateScore() {

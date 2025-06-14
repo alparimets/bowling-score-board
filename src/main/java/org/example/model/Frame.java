@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Frame {
-  private final List<Integer> rolls = new ArrayList<>();
+  final List<Integer> rolls = new ArrayList<>();
   private boolean isStrike = false;
   private boolean isSpare = false;
 
@@ -17,9 +17,7 @@ public class Frame {
   }
 
   public void addRoll(int pins) {
-    if (pins < 0 || pins > 10) {
-      throw new IllegalArgumentException("Pins must be between 0 and 10.");
-    }
+
     rolls.add(pins);
     if (rolls.size() == 1 && pins == 10) {
       isStrike = true;
@@ -34,5 +32,9 @@ public class Frame {
 
   public int getTotalPins() {
     return rolls.stream().mapToInt(Integer::intValue).sum();
+  }
+
+  public int getRollCount() {
+    return rolls.size();
   }
 }

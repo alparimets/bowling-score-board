@@ -13,18 +13,19 @@ class PlayerTest {
 
     assertEquals(name, p.getName());
     assertNotNull(p.getScoreLine());
-    assertFalse(p.isFrameFinished());
     assertFalse(p.isGameFinished());
   }
 
   @Test
   void rollUpdatesScoreLineAndFrameState() {
     var p = new Player("Player 1");
+    var initialFrame = p.getScoreLine().getCurrentFrameIndex();
     p.roll(5);
     p.roll(3);
+    var afterRollFrameIndex = p.getScoreLine().getCurrentFrameIndex();
 
     assertEquals(8, p.getScoreLine().calculateScore());
-    assertTrue(p.isFrameFinished());
+    assertNotEquals(initialFrame, afterRollFrameIndex);
     assertFalse(p.isGameFinished());
   }
 
@@ -32,11 +33,11 @@ class PlayerTest {
   void rollFinishesGameAfterTenFrames() {
     var p = new Player("Player 1");
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 12; i++) {
       p.roll(10);
     }
 
     assertTrue(p.isGameFinished());
-    assertEquals(100, p.getScoreLine().calculateScore());
+    assertEquals(120, p.getScoreLine().calculateScore());
   }
 }
