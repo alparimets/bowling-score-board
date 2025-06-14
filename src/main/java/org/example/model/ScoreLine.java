@@ -15,11 +15,13 @@ public class ScoreLine {
     return frames.size() == 10 && frames.get(9).isComplete();
   }
 
-  public Frame getCurrentFrame() {
-    if (!frames.isEmpty() && currentFrameIndex < frames.size()) {
-      return frames.get(currentFrameIndex);
-    } else {
-      throw new IllegalStateException("No current frame available.");
+  public void addRoll(int pins) {
+
+    var currentFrame = frames.get(currentFrameIndex);
+    currentFrame.addRoll(pins);
+    //        updateBonuses(pins);
+    if (!isComplete() && currentFrame.isComplete()) {
+      advanceToNextFrame();
     }
   }
 
@@ -42,10 +44,16 @@ public class ScoreLine {
     return currentFrameIndex;
   }
 
-  public Frame getFrame(int index) {
-    if (index < 0 || index >= frames.size()) {
-      throw new IndexOutOfBoundsException("Frame index out of bounds.");
-    }
-    return frames.get(index);
+  public int getCurrentRollNumber() {
+    return frames.get(currentFrameIndex).getRollCount() + 1;
+  }
+
+  public boolean isRoundFinished(int frameNumber) {
+    return getFrame(frameNumber).isComplete();
+  }
+
+  public Frame getFrame(int frameNumber) {
+    var frameIndex = frameNumber - 1;
+    return frames.get(frameIndex);
   }
 }

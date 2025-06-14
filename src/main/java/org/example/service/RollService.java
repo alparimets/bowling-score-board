@@ -38,7 +38,7 @@ public class RollService {
   }
 
   private void printPrompt() {
-    printService.printInputPromt(
+    printService.printInputPrompt(
         MessageFormat.format(
             "Enter the number of pins knocked down or just press ENTER for a random number (0-{0}): ",
             pinDeckService.getRemainingPins()));

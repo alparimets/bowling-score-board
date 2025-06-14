@@ -13,6 +13,5 @@ class ScoreLineTest {
     assertNotNull(scoreLine);
     assertEquals(0, scoreLine.calculateScore());
     assertFalse(scoreLine.isComplete());
-    assertNotNull(scoreLine.getCurrentFrame());
   }
 }

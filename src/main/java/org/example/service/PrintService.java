@@ -3,7 +3,6 @@ package org.example.service;
 import jakarta.enterprise.context.ApplicationScoped;
 import java.text.MessageFormat;
 import java.util.List;
-import org.example.model.Frame;
 import org.example.model.Player;
 
 @ApplicationScoped
@@ -32,15 +31,18 @@ public class PrintService {
     System.out.println("It's " + currentPlayer.getName() + "'s turn.");
   }
 
-  public void printFrameHeader(int frameNumber, int rollNumber) {
-    System.out.println(MessageFormat.format("  Frame {0}, roll {1}:", frameNumber, rollNumber));
+  public void printRollHeader(Player player) {
+    System.out.println(
+        MessageFormat.format(
+            "  Frame {0}, roll {1}:",
+            player.getCurrentFrameNumber(), player.getCurrentRollNumber()));
   }
 
   public void printSimpleMessage(String message) {
     System.out.println(message);
   }
 
-  public void printInputPromt(String message) {
+  public void printInputPrompt(String message) {
     System.out.print(message);
   }
 
@@ -48,7 +50,8 @@ public class PrintService {
     System.err.println("Error: " + errorMessage);
   }
 
-  public void printFrameResult(Player currentPlayer, Frame finishedFrame, int frameIndex) {
+  public void printFrameResult(Player currentPlayer, int frameNumber) {
+    var finishedFrame = currentPlayer.getScoreLine().getFrame(frameNumber);
     var additionalFrameMessage =
         finishedFrame.isStrike() ? " (strike)" : finishedFrame.isSpare() ? " (spare)" : "";
 
@@ -56,7 +59,7 @@ public class PrintService {
         MessageFormat.format(
             "  {0}''s frame {1} is finished with {2} pins knocked down {3}.",
             currentPlayer.getName(),
-            frameIndex,
+            frameNumber,
             finishedFrame.getTotalPins(),
             additionalFrameMessage));
     System.out.println("_________________________________________________________________");

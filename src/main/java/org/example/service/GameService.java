@@ -30,23 +30,22 @@ public class GameService {
   private void playTurn(Player currentPlayer) {
     printService.printPlayerTurn(currentPlayer);
 
-    int currentTurnFrameIndex = currentPlayer.getScoreLine().getCurrentFrameIndex();
-    var activeFrame = currentPlayer.getScoreLine().getFrame(currentTurnFrameIndex);
-    printService.printFrameHeader(currentTurnFrameIndex + 1, activeFrame.getRollCount() + 1);
+    int currentFrameNumber = currentPlayer.getCurrentFrameNumber();
+    printService.printRollHeader(currentPlayer);
     pinDeckService.reset();
 
     var firstRollPins = rollService.roll();
     currentPlayer.roll(firstRollPins);
-    while (!isTurnFinished(currentPlayer, currentTurnFrameIndex)) {
-      printService.printFrameHeader(currentTurnFrameIndex + 1, activeFrame.getRollCount() + 1);
+    while (!isTurnFinished(currentPlayer, currentFrameNumber)) {
+      printService.printRollHeader(currentPlayer);
       var secondRollPins = rollService.roll();
       currentPlayer.roll(secondRollPins);
     }
 
-    printService.printFrameResult(currentPlayer, activeFrame, currentTurnFrameIndex + 1);
+    printService.printFrameResult(currentPlayer, currentFrameNumber);
   }
 
-  private boolean isTurnFinished(Player currentPlayer, int currentTurnFrameIndex) {
-    return currentPlayer.getScoreLine().getFrame(currentTurnFrameIndex).isComplete();
+  private boolean isTurnFinished(Player currentPlayer, int currentFrameNumber) {
+    return currentPlayer.isRoundFinished(currentFrameNumber);
   }
 }

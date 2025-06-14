@@ -10,12 +10,7 @@ public class Player {
   }
 
   public void roll(int pins) {
-    var currentFrame = scoreLine.getCurrentFrame();
-    currentFrame.addRoll(pins);
-
-    if (currentFrame.isComplete() && !scoreLine.isComplete()) {
-      scoreLine.advanceToNextFrame();
-    }
+    scoreLine.addRoll(pins);
   }
 
   public boolean isGameFinished() {
@@ -28,5 +23,17 @@ public class Player {
 
   public ScoreLine getScoreLine() {
     return scoreLine;
+  }
+
+  public int getCurrentFrameNumber() {
+    return scoreLine.getCurrentFrameIndex() + 1;
+  }
+
+  public int getCurrentRollNumber() {
+    return scoreLine.getCurrentRollNumber();
+  }
+
+  public boolean isRoundFinished(int currentFrameNumber) {
+    return scoreLine.isRoundFinished(currentFrameNumber);
   }
 }
