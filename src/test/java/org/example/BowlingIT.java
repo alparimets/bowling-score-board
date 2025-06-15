@@ -15,11 +15,11 @@ import org.example.service.PlayerService;
 import org.junit.jupiter.api.*;
 
 @QuarkusTest
-public class BowlingIT {
+class BowlingIT {
 
-  @InjectMock PlayerService playerService;
+  @InjectMock private PlayerService playerService;
 
-  @Inject BowlingMain bowlingMain;
+  @Inject private BowlingMain bowlingMain;
 
   private final InputStream originalSystemIn = System.in;
 

@@ -23,35 +23,35 @@ public class PrintService {
     }
   }
 
-  public void printGameStartMessage() {
+  void printGameStartMessage() {
     System.out.println("The game is starting! Good luck to all players!");
   }
 
-  public void printPlayerTurn(Player currentPlayer) {
+  void printPlayerTurn(Player currentPlayer) {
     printDivider();
     System.out.println("It's " + currentPlayer.getName() + "'s turn.");
   }
 
-  public void printRollHeader(Player player) {
+  void printRollHeader(Player player) {
     System.out.println(
         MessageFormat.format(
             "  Frame {0}, roll {1}:",
             player.getCurrentFrameNumber(), player.getCurrentRollNumber()));
   }
 
-  public void printSimpleMessage(String message) {
+  void printSimpleMessage(String message) {
     System.out.println(message);
   }
 
-  public void printInputPrompt(String message) {
+  void printInputPrompt(String message) {
     System.out.print(message);
   }
 
-  public void printError(String errorMessage) {
+  void printError(String errorMessage) {
     System.err.println("Error: " + errorMessage);
   }
 
-  public void printFrameResult(Player currentPlayer, int frameNumber) {
+  void printFrameResult(Player currentPlayer, int frameNumber) {
     var finishedFrame = currentPlayer.getScoreLine().getFrame(frameNumber);
     var additionalFrameMessage =
         finishedFrame.isStrike() ? " (strike)" : finishedFrame.isSpare() ? " (spare)" : "";
@@ -65,12 +65,12 @@ public class PrintService {
             additionalFrameMessage));
   }
 
-  public void printFinalResult(List<Player> players) {
+  void printFinalResult(List<Player> players) {
     System.out.println("The game is over! Here are the final scores:");
     players.forEach(this::printPlayerFinalResult);
   }
 
-  public void printPlayerFinalResult(Player player) {
+  private void printPlayerFinalResult(Player player) {
     int accumulatedScore = 0;
     for (int i = 1; i <= 10; i++) {
       printFrameResult(player, i);
@@ -82,7 +82,7 @@ public class PrintService {
     }
   }
 
-  void printDivider() {
+  private void printDivider() {
     System.out.println("--------------------------------------------------");
   }
 }

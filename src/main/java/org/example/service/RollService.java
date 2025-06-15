@@ -5,7 +5,7 @@ import java.text.MessageFormat;
 import org.example.util.NumberParser;
 
 @ApplicationScoped
-public class RollService {
+class RollService {
   private final PrintService printService;
   private final PinDeckService pinDeckService;
   private final InputReaderService inputReaderService;

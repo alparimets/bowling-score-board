@@ -5,7 +5,7 @@ import java.util.Optional;
 import java.util.Scanner;
 
 @ApplicationScoped
-public class InputReaderService {
+class InputReaderService {
   private final Scanner scanner = new Scanner(System.in);
 
   public Optional<String> readLine() {

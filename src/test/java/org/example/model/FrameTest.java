@@ -23,7 +23,7 @@ class FrameTest {
     assertEquals(expectedSpare, frame.isSpare());
   }
 
-  static Stream<Arguments> frameRollsProvider() {
+  private static Stream<Arguments> frameRollsProvider() {
     return Stream.of(
         Arguments.of(10, 0, true, false), // Strike
         Arguments.of(5, 5, false, true), // Spare

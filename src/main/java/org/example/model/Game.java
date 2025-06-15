@@ -5,7 +5,7 @@ import java.util.List;
 public class Game {
   private final List<Player> players;
   private int currentPlayerIndex = 0;
-  public static final int MAXIMUM_PLAYERS = 4;
+  private static final int MAXIMUM_PLAYERS = 4;
 
   public Game(List<Player> players) {
     if (players == null || players.isEmpty()) {

@@ -23,7 +23,7 @@ public class ScoreLine {
     }
   }
 
-  public void advanceToNextFrame() {
+  void advanceToNextFrame() {
     if (frames.size() < 9) {
       frames.add(new Frame());
     } else if (frames.size() == 9) {

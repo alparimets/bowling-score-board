@@ -7,7 +7,7 @@ import org.example.service.PlayerService;
 import org.example.service.PrintService;
 
 @QuarkusMain
-public class BowlingMain implements QuarkusApplication {
+class BowlingMain implements QuarkusApplication {
   private final PrintService printService;
   private final PlayerService playerService;
   private final GameService gameService;

@@ -3,7 +3,7 @@ package org.example.service;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class PinDeckService {
+class PinDeckService {
   private static final int TOTAL_PINS = 10;
   private int remainingPins = TOTAL_PINS;
 

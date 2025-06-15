@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class FinalFrameTest {
 
-  static Stream<Arguments> isCompleteCases() {
+  private static Stream<Arguments> isCompleteCases() {
     return Stream.of(
         Arguments.of(List.of(5, 10, 10), true),
         Arguments.of(List.of(3, 5), true),
@@ -26,7 +26,7 @@ class FinalFrameTest {
     assertEquals(expected, frame.isComplete());
   }
 
-  static Stream<Arguments> bonusCases() {
+  private static Stream<Arguments> bonusCases() {
     return Stream.of(
         Arguments.of(List.of(3, 6), 0),
         Arguments.of(List.of(5, 4, 0), 0),
@@ -41,7 +41,7 @@ class FinalFrameTest {
     assertEquals(expectedBonus, frame.getBonus());
   }
 
-  static Stream<Arguments> spareAndStrikeCases() {
+  private static Stream<Arguments> spareAndStrikeCases() {
     return Stream.of(
         Arguments.of(List.of(0, 3), true, 0),
         Arguments.of(List.of(7, 3), false, 0),
