@@ -3,7 +3,7 @@ package org.example.model;
 import java.util.List;
 
 public class Game {
-  private List<Player> players;
+  private final List<Player> players;
   private int currentPlayerIndex = 0;
   public static final int MAXIMUM_PLAYERS = 4;
 
@@ -18,7 +18,6 @@ public class Game {
   }
 
   public void nextPlayer() {
-
     currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
   }
 
@@ -28,5 +27,9 @@ public class Game {
 
   public Player getCurrentPlayer() {
     return players.get(currentPlayerIndex);
+  }
+
+  public List<Player> getPlayers() {
+    return players;
   }
 }

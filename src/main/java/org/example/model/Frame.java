@@ -7,6 +7,7 @@ public class Frame {
   final List<Integer> rolls = new ArrayList<>();
   private boolean isStrike = false;
   private boolean isSpare = false;
+  private int bonus = 0;
 
   public boolean isStrike() {
     return isStrike;
@@ -30,11 +31,23 @@ public class Frame {
     return rolls.size() == 2 || isStrike;
   }
 
-  public int getTotalPins() {
-    return rolls.stream().mapToInt(Integer::intValue).sum();
+  public int getFrameScore() {
+    return rolls.stream().mapToInt(Integer::intValue).sum() + bonus;
+  }
+
+  public List<Integer> getRolls() {
+    return new ArrayList<>(rolls);
   }
 
   public int getRollCount() {
     return rolls.size();
+  }
+
+  public void addBonus(int bonus) {
+    this.bonus += bonus;
+  }
+
+  public int getBonus() {
+    return bonus;
   }
 }

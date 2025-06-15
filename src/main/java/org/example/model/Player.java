@@ -9,7 +9,7 @@ public class Player {
     this.scoreLine = new ScoreLine();
   }
 
-  public void roll(int pins) {
+  public void addRoll(int pins) {
     scoreLine.addRoll(pins);
   }
 

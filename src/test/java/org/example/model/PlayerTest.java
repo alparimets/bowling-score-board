@@ -17,11 +17,11 @@ class PlayerTest {
   }
 
   @Test
-  void rollUpdatesScoreLineAndFrameState() {
+  void addScoreUpdatesRollLineAndFrameState() {
     var p = new Player("Player 1");
     var initialFrame = p.getScoreLine().getCurrentFrameIndex();
-    p.roll(5);
-    p.roll(3);
+    p.addRoll(5);
+    p.addRoll(3);
     var afterRollFrameIndex = p.getScoreLine().getCurrentFrameIndex();
 
     assertEquals(8, p.getScoreLine().calculateScore());
@@ -30,14 +30,14 @@ class PlayerTest {
   }
 
   @Test
-  void rollFinishesGameAfterTenFrames() {
+  void addRollFinishesGameAfterTenFrames() {
     var p = new Player("Player 1");
 
     for (int i = 0; i < 12; i++) {
-      p.roll(10);
+      p.addRoll(10);
     }
 
     assertTrue(p.isGameFinished());
-    assertEquals(120, p.getScoreLine().calculateScore());
+    assertEquals(300, p.getScoreLine().calculateScore());
   }
 }

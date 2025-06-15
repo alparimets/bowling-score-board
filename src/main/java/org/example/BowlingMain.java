@@ -14,7 +14,7 @@ public class BowlingMain implements QuarkusApplication {
   @Inject GameService gameService;
 
   @Override
-  public int run(String... args) throws Exception {
+  public int run(String... args) {
     printService.printWelcomeMessage();
     var players = playerService.getPlayers();
     printService.printPlayerNames(players);

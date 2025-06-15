@@ -5,6 +5,7 @@ import jakarta.inject.Inject;
 import java.util.List;
 import org.example.model.Game;
 import org.example.model.Player;
+import org.example.model.ScoreLine;
 
 @ApplicationScoped
 public class GameService {
@@ -12,35 +13,33 @@ public class GameService {
   @Inject RollService rollService;
   @Inject PinDeckService pinDeckService;
 
-  private Game game;
-
   public void startGame(List<Player> players) {
     printService.printGameStartMessage();
-    game = new Game(players);
+    Game game = new Game(players);
 
-    while (!game.isFinished()) {
-      var currentPlayer = game.getCurrentPlayer();
-
-      playTurn(currentPlayer);
-
+    do {
+      playTurn(game.getCurrentPlayer());
       game.nextPlayer();
-    }
+    } while (!game.isFinished());
+    calculateFinalResults(game);
+    printService.printFinalResult(game.getPlayers());
+  }
+
+  private void calculateFinalResults(Game game) {
+    game.getPlayers().stream().map(Player::getScoreLine).forEach(ScoreLine::calculateScore);
   }
 
   private void playTurn(Player currentPlayer) {
     printService.printPlayerTurn(currentPlayer);
 
     int currentFrameNumber = currentPlayer.getCurrentFrameNumber();
-    printService.printRollHeader(currentPlayer);
     pinDeckService.reset();
 
-    var firstRollPins = rollService.roll();
-    currentPlayer.roll(firstRollPins);
-    while (!isTurnFinished(currentPlayer, currentFrameNumber)) {
+    do {
       printService.printRollHeader(currentPlayer);
-      var secondRollPins = rollService.roll();
-      currentPlayer.roll(secondRollPins);
-    }
+      int pinsKnockedDown = rollService.roll();
+      currentPlayer.addRoll(pinsKnockedDown);
+    } while (!isTurnFinished(currentPlayer, currentFrameNumber));
 
     printService.printFrameResult(currentPlayer, currentFrameNumber);
   }

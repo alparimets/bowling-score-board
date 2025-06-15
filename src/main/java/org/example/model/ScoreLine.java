@@ -16,10 +16,8 @@ public class ScoreLine {
   }
 
   public void addRoll(int pins) {
-
     var currentFrame = frames.get(currentFrameIndex);
     currentFrame.addRoll(pins);
-    //        updateBonuses(pins);
     if (!isComplete() && currentFrame.isComplete()) {
       advanceToNextFrame();
     }
@@ -37,7 +35,8 @@ public class ScoreLine {
   }
 
   public int calculateScore() {
-    return frames.stream().mapToInt(Frame::getTotalPins).sum();
+    calculateBonuses();
+    return frames.stream().mapToInt(Frame::getFrameScore).sum();
   }
 
   public int getCurrentFrameIndex() {
@@ -55,5 +54,22 @@ public class ScoreLine {
   public Frame getFrame(int frameNumber) {
     var frameIndex = frameNumber - 1;
     return frames.get(frameIndex);
+  }
+
+  private void calculateBonuses() {
+    for (int i = 0; i < frames.size() - 1; i++) {
+      var frame = frames.get(i);
+      if (frame.isSpare() && frames.get(i + 1).getRollCount() > 0) {
+        frame.addBonus(frames.get(i + 1).getRolls().getFirst());
+      }
+      if (frame.isStrike()) {
+        var firstBonus = frames.get(i + 1).getRolls().getFirst();
+        var secondBonus =
+            frames.get(i + 1).getRolls().size() > 1
+                ? frames.get(i + 1).getRolls().get(1)
+                : frames.get(i + 2).getRolls().getFirst();
+        frame.addBonus(firstBonus + secondBonus);
+      }
+    }
   }
 }

@@ -1,12 +1,9 @@
 package org.example.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 
 @ApplicationScoped
 public class PinDeckService {
-  @Inject PrintService printService;
-
   private static final int TOTAL_PINS = 10;
   private int remainingPins = TOTAL_PINS;
 

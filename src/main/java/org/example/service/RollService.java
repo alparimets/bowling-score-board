@@ -17,17 +17,13 @@ public class RollService {
       var input = inputReaderService.readLine();
 
       if (input.isPresent()) {
-        var pins =
-            NumberParser.tryParseInt(input.get())
-                .filter(this::verifyInput)
-                .orElseGet(
-                    () -> {
-                      printError();
-                      return null;
-                    });
-        if (pins != null) {
+        var validatedInput = NumberParser.tryParseInt(input.get()).filter(this::verifyInput);
+        if (validatedInput.isPresent()) {
+          int pins = validatedInput.get();
           knockDownPins(pins);
           return pins;
+        } else {
+          printError();
         }
       } else {
         int pins = getRandomPins();
@@ -46,9 +42,9 @@ public class RollService {
 
   private void printError() {
     printService.printError(
-        "Invalid input. Please enter a number between 0 and "
-            + pinDeckService.getRemainingPins()
-            + ".");
+        MessageFormat.format(
+            "Invalid input. Please enter a number between 0 and {0}.",
+            pinDeckService.getRemainingPins()));
   }
 
   private void knockDownPins(int pins) {

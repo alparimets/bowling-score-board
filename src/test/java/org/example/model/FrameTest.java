@@ -49,4 +49,18 @@ class FrameTest {
     assertTrue(frame.isComplete());
     assertTrue(frame.isStrike());
   }
+
+  @Test
+  void testAddBonusAndGetFrameScore() {
+    var frame = new Frame();
+    frame.addRoll(7);
+    frame.addRoll(2);
+    assertEquals(9, frame.getFrameScore());
+
+    frame.addBonus(5);
+    assertEquals(14, frame.getFrameScore());
+
+    frame.addBonus(3);
+    assertEquals(17, frame.getFrameScore());
+  }
 }

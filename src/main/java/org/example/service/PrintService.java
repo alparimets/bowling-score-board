@@ -28,6 +28,7 @@ public class PrintService {
   }
 
   public void printPlayerTurn(Player currentPlayer) {
+    printDivider();
     System.out.println("It's " + currentPlayer.getName() + "'s turn.");
   }
 
@@ -57,11 +58,31 @@ public class PrintService {
 
     System.out.println(
         MessageFormat.format(
-            "  {0}''s frame {1} is finished with {2} pins knocked down {3}.",
+            "{0}''s frame {1} is finished with {2} pins knocked down {3}.",
             currentPlayer.getName(),
             frameNumber,
-            finishedFrame.getTotalPins(),
+            finishedFrame.getFrameScore(),
             additionalFrameMessage));
-    System.out.println("_________________________________________________________________");
+  }
+
+  public void printFinalResult(List<Player> players) {
+    System.out.println("The game is over! Here are the final scores:");
+    players.forEach(this::printPlayerFinalResult);
+  }
+
+  public void printPlayerFinalResult(Player player) {
+    int accumulatedScore = 0;
+    for (int i = 1; i <= 10; i++) {
+      printFrameResult(player, i);
+      accumulatedScore += player.getScoreLine().getFrame(i).getFrameScore();
+      System.out.println(
+          MessageFormat.format("  Bonus: {0}", player.getScoreLine().getFrame(i).getBonus()));
+      System.out.println("  Accumulated score after frame " + i + ": " + accumulatedScore);
+      printDivider();
+    }
+  }
+
+  void printDivider() {
+    System.out.println("--------------------------------------------------");
   }
 }
