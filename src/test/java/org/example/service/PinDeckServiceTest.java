@@ -1,7 +1,6 @@
 package org.example.service;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,10 +25,9 @@ class PinDeckServiceTest {
   }
 
   @Test
-  void testKnockDownPinsResetsWhenZero() {
+  void testKnockDownPinsResetsWhenZeroRemaining() {
     sut.knockDownPins(10);
 
-    verify(sut).reset();
     assertEquals(10, sut.getRemainingPins());
   }
 

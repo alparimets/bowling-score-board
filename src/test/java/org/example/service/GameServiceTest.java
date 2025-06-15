@@ -19,7 +19,7 @@ class GameServiceTest {
   @InjectMocks GameService gameService;
 
   @Test
-  void startGame_withSinglePlayer_verifiesExactServiceCalls() {
+  void singlePlayerTestFromExercise() {
     var player = new Player("Anna");
     var expectedRollCount =
         19; // 10 frames (20 rolls) - 2 strike (2 rolls skipped) + final spare bonus role (1)
@@ -38,7 +38,7 @@ class GameServiceTest {
   }
 
   @Test
-  void startGame_withPerfectPlayer_verifiesExactServiceCalls() {
+  void perfectPlayerTest() {
     var perfectPlayer = new Player("Perfect");
 
     // Perfect game: 12 rolls of 10 (strike every frame + 2 bonus in 10th)
