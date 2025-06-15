@@ -1,15 +1,23 @@
 package org.example.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 import java.text.MessageFormat;
 import org.example.util.NumberParser;
 
 @ApplicationScoped
 public class RollService {
-  @Inject PrintService printService;
-  @Inject PinDeckService pinDeckService;
-  @Inject InputReaderService inputReaderService;
+  private final PrintService printService;
+  private final PinDeckService pinDeckService;
+  private final InputReaderService inputReaderService;
+
+  public RollService(
+      PrintService printService,
+      PinDeckService pinDeckService,
+      InputReaderService inputReaderService) {
+    this.printService = printService;
+    this.pinDeckService = pinDeckService;
+    this.inputReaderService = inputReaderService;
+  }
 
   int roll() {
     while (true) {

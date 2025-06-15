@@ -1,7 +1,6 @@
 package org.example.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 import java.util.List;
 import org.example.model.Game;
 import org.example.model.Player;
@@ -9,9 +8,16 @@ import org.example.model.ScoreLine;
 
 @ApplicationScoped
 public class GameService {
-  @Inject PrintService printService;
-  @Inject RollService rollService;
-  @Inject PinDeckService pinDeckService;
+  private final PrintService printService;
+  private final RollService rollService;
+  private final PinDeckService pinDeckService;
+
+  public GameService(
+      PrintService printService, RollService rollService, PinDeckService pinDeckService) {
+    this.printService = printService;
+    this.rollService = rollService;
+    this.pinDeckService = pinDeckService;
+  }
 
   public void startGame(List<Player> players) {
     printService.printGameStartMessage();

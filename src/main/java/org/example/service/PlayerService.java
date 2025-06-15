@@ -6,7 +6,7 @@ import org.example.model.Player;
 
 @ApplicationScoped
 public class PlayerService {
-  List<String> playerNames = List.of("Ana", "Bent");
+  private final List<String> playerNames = List.of("Ana", "Bent");
 
   public List<Player> getPlayers() {
     return playerNames.stream().map(Player::new).toList();

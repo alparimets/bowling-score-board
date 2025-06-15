@@ -21,7 +21,7 @@ public class BowlingIT {
 
   @Inject BowlingMain bowlingMain;
 
-  InputStream originalSystemIn = System.in;
+  private final InputStream originalSystemIn = System.in;
 
   @AfterEach
   void cleanUp() {
