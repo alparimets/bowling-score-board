@@ -4,8 +4,8 @@ This project is a simple command-line application that calculates the score of a
 
 **_Design considerations_**:
 - **Separation of concern**:
-  The Model contains business logic and state.
-  The Service classes handle application logic, I/O and user interaction.
+  The Model contains game state.
+  The Service classes handle business logic, I/O and user interaction.
 
 - **Single responsibility**:
   I tried to structure the code so that each class has a clear and focused responsibility, so that the code is easier to read and follow, and extend.
